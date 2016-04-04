@@ -1,0 +1,31 @@
+{
+  "name": "ExternalContactDB",
+  "version": "0.0.1",
+  "description": "a PureCloud External DB demo",
+  "private": true,
+  "scripts": {
+    "start": "node app.js",
+    "test":  "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/gildas/ExternalContactDB.git"
+  },
+  "keywords": [
+    "PureCloud",
+    "Bridge",
+    "Architect"
+  ],
+  "author": "gildas.cherruel@inin.com",
+  "license": "Apache v2.0",
+  "bugs": {
+    "url": "https://github.com/gildas/ExternalContactDB/issues"
+  },
+  "homepage": "https://github.com/gildas/ExternalContactDB#readme",
+  "dependencies": {
+    "git-rev": "^0.2.1",
+    "nconf": "^0.8.4",
+    "body-parser": "~1.15",
+    "express": "~4.13"
+  }
+}
