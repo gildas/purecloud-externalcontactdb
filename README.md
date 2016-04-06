@@ -1,6 +1,8 @@
 ExternalContactDB
 =================
 
+[![Build Status](https://travis-ci.org/gildas/purecloud-externalcontactdb.svg?branch=master)](https://travis-ci.org/gildas/purecloud-externalcontactdb)
+
 A simple Website that shows how to use [Interactive Intelligence, Inc](https://www.inin.com)'s [PureCloud](https://mypurecloud.com) connector to interface with external providers.
 
 Installation
