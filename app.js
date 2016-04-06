@@ -51,6 +51,9 @@ app.set('port', config.get('port'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+/**
+ * Routes
+ */
 app.post('/GetLastAgentByCustomerId', function(req, res) {
   console.log('POST /GetLastAgentByCustomerId');
   console.log("  customer id: %s", req.body.customerId);
@@ -69,9 +72,23 @@ app.post('/GetLastAgentByCustomerId', function(req, res) {
 });
 
 /**
+ * Error handling
+ */
+if (app.get('env') === 'development') {
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', { message: err.message, error: err });
+  });
+} else { // production error handler
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', { message: err.message, error: {} });
+  });
+}
+
+/**
  * Create HTTP server.
  */
-
 var server = http.createServer(app);
 
 server.on('listening', function(){
