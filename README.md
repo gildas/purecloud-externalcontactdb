@@ -103,6 +103,8 @@ or, on Windows:
 $env:DEBUG="ExternalContactDB:*" ; node app.js
 ```
 
+Note: the project also support [node foreman](https://github.com/strongloop/node-foreman)
+
 Deployment on :heart:[Heroku](https://heroku.com):sunglasses:
 ----------------------
 
