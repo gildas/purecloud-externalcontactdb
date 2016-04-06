@@ -14,10 +14,10 @@ var http       = require('http');
  * Fake database
  */
 var contact_db = {
-  '1111': { agent_id: 'agent01' },
-  '2222': { agent_id: 'agent02' },
-  '3333': { agent_id: 'agent03' },
-  '4444': { agent_id: 'agent04' },
+  '1111': { id: 'customer01', customAttribute: 'agent01' },
+  '2222': { id: 'customer02', customAttribute: 'agent02' },
+  '3333': { id: 'customer03', customAttribute: 'agent03' },
+  '4444': { id: 'customer04', customAttribute: 'agent04' },
 };
 
 /**
@@ -54,20 +54,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 /**
  * Routes
  */
-app.post('/GetLastAgentByCustomerId', function(req, res) {
-  console.log('POST /GetLastAgentByCustomerId');
-  console.log("  customer id: %s", req.body.customerId);
+app.post('/GetAccountByContactId', function(req, res) {
+  console.log('POST /GetAccountByContactId');
+  console.log("  customer id: %s", req.body.contactId);
 
-  var contact = contact_db[req.body.customerId];
+  var contact = contact_db[req.body.contactId];
   if (contact){
     console.log("Found customer!");
     res.json(contact);
-  } else if (req.body.customerId === undefined) {
-    console.log("Bad Request is missing [customerId]");
-    res.status(400).send("error.key.notfound(id: \"customerId\")");
+  } else if (req.body.contactId === undefined) {
+    console.log("Bad Request is missing [contactId]");
+    res.status(400).send("error.key.notfound(id: \"contactId\")");
   } else {
     console.log("Customer not found");
-    res.status(404).send(util.format("error.id.notfound(id: \"%s\")", req.body.customerId));
+    res.status(404).send(util.format("error.id.notfound(id: \"%s\")", req.body.contactId));
   }
 });
 
