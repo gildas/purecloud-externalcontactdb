@@ -36,14 +36,11 @@ config.argv({
 /**
  * Environment and git information
  */
-console.log("Version: %s, listening on port: %s", app_info.version, config.get('port'));
+console.log("Version: %s", app_info.version);
 gitrev.short(function(value)  { console.log('Git commit: ' + value); });
 gitrev.branch(function(value) { console.log('Git branch: ' + value); });
 gitrev.tag(function(value)    { console.log('Git tag: '    + value); });
 
-config.save(function(error){
-  console.error("Could not save config");
-});
 /**
  * Create the application.
  */
