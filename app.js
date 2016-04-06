@@ -63,8 +63,8 @@ app.post('/GetLastAgentByCustomerId', function(req, res) {
     console.log("Found customer!");
     res.json(contact);
   } else if (req.body.customerId === undefined) {
-    console.log("Request is missing [customerId]");
-    res.status(404).send("error.key.notfound(id: \"customerId\")");
+    console.log("Bad Request is missing [customerId]");
+    res.status(400).send("error.key.notfound(id: \"customerId\")");
   } else {
     console.log("Customer not found");
     res.status(404).send(util.format("error.id.notfound(id: \"%s\")", req.body.customerId));
