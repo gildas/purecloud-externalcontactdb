@@ -2,6 +2,7 @@
 
 var app_info   = require('./package.json');
 var fs         = require('fs');
+var util       = require('util');
 var config     = require('nconf');
 var gitrev     = require('git-rev');
 var debug      = require('debug')('ExternalContactDB:server');
@@ -50,7 +51,7 @@ app.set('port', config.get('port'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.post('/GetLastAgentByCustomerId', function(req, res){
+app.post('/GetLastAgentByCustomerId', function(req, res) {
   console.log('POST /GetLastAgentByCustomerId');
   console.log("  customer id: %s", req.body.customerId);
 
@@ -58,9 +59,12 @@ app.post('/GetLastAgentByCustomerId', function(req, res){
   if (contact){
     console.log("Found customer!");
     res.json(contact);
+  } else if (req.body.customerId === undefined) {
+    console.log("Request is missing [customerId]");
+    res.status(404).send("error.key.notfound(id: \"customerId\")");
   } else {
     console.log("Customer not found");
-    res.status(404).send("Not found");
+    res.status(404).send(util.format("error.id.notfound(id: \"%s\")", req.body.customerId));
   }
 });
 
