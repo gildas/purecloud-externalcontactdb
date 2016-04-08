@@ -107,6 +107,54 @@ $env:DEBUG="ExternalContactDB:*" ; node app.js
 
 Note: the project also support [node foreman](https://github.com/strongloop/node-foreman)
 
+Deployment on [CentOS](https://www.centos.org) 7 :sunglasses:
+------------------------------------------------
+
+These instructions will walk you to deploying the application on a CentOS node.
+
+1. Install CentOS and choose the minimal server.  
+   Make sure to update the OS:
+   ```sh
+   $ sudo yum update
+   ```
+2. Install some basic tools, if they are not present:
+   ```sh
+   $ sudo yum install -y git
+   ```
+2. Install [Node.js](https://nodejs.org) as follows:
+   ```sh
+   $ curl --silent --location https://rpm.nodesource.com/setup_4.x | sudo bash -
+   $ sudo yum install -y nodejs
+   ```
+3. Install [PM2](http://pm2.keymetrics.io) to manage your node application:
+   ```sh
+   $ sudo npm install --global pm2
+   ```
+4. Enable and start the pm2 micro-service manager:
+   ```sh
+   $ sudo pm2 startup systemd
+   ```
+5. Clone the repository:
+   ```sh
+   $ mkdir -p /var/www /var/run/pm2 /var/log/pm2
+   $ cd /var/www
+   $ git clone https://github.com/gildas/purecloud-externalcontactdb.git ExternalContactDB
+   ```
+6. Start the application in PM2:
+   ```
+   $ cd /var/www/ExternalContactDB
+   $ sudo pm2 start app.js --name 'ExternalContactDB' --output /var/log/pm2/externalcontactdb-out.log --error /var/log/pm2/externalcontactdb-error.log --pid /var/run/pm2/externalcontactdb.pid
+   ```
+7. Open the port you chose for the app:
+   ```
+   $ sudo firewall-cmd --zone=public --add-port=3000/tcp --permanent
+   $ sudo firewall-cmd --reload
+   ```
+
+That's it!  
+Do not forget to reload (run a `sudo pm2 reload app`) the application every time you do a `git pull` in the folder.  
+You can monitor and/or read the logs realtime with `sudo pm2 monit` and `sudo pm2 logs`.
+
 Deployment on :heart:[Heroku](https://heroku.com):sunglasses:
 ----------------------
 
