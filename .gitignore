@@ -37,3 +37,6 @@ config.json
 
 # Heroku local configuration
 .env
+
+# npm configuration
+.npmrc
