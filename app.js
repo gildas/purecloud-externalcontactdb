@@ -71,6 +71,23 @@ app.post('/GetAccountByContactId', function(req, res) {
   }
 });
 
+app.post('/GetAgentForDBRouting', function(req, res) {
+  console.log('POST /GetAgentForDBRouting');
+  console.log("  customer id: %s", req.body.ContactId);
+
+  var contact = contact_db[req.body.ContactId];
+  if (contact){
+    console.log("Found customer!");
+    res.json({ Account: contact });
+  } else if (req.body.ContactId === undefined) {
+    console.log("Bad Request is missing [contactId]");
+    res.status(400).send("error.key.notfound(id: \"ContactId\")");
+  } else {
+    console.log("Customer not found");
+    res.status(404).send(util.format("error.id.notfound(id: \"%s\")", req.body.ContactId));
+  }
+});
+
 /**
  * Error handling
  */
